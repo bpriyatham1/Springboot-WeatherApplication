@@ -1,10 +1,10 @@
 package com.dcs.WeatherApplication.services;
 
 
-import com.alicp.jetcache.anno.Cached;
 import com.dcs.WeatherApplication.dto.WeatherMapDTO;
 import com.dcs.WeatherApplication.dto.WeatherMapTimeDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,8 +31,8 @@ public class WeatherService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    @Cached(expire = 10, timeUnit = TimeUnit.MINUTES)
-    public ResponseEntity<?> weatherForecastAverage(String city, long inputDate) {
+    @Cacheable(value = "cityCache", key = "'weatherForecast'")
+    public ResponseEntity<?> weatherForecast(String city, long inputDate) {
         List<WeatherMapTimeDTO> result = new ArrayList<WeatherMapTimeDTO>();
         try {
             WeatherMapDTO weatherMap = this.restTemplate.getForObject(this.url(city, inputDate), WeatherMapDTO.class);

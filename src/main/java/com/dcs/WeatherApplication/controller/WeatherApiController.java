@@ -22,7 +22,7 @@ public class WeatherApiController {
     @GetMapping(value = "/fetchTemperature", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> weatherForecast(@ApiParam("Provide City name in String Format") @RequestParam(required = true) String city,
                                              @ApiParam("provide Input Date in Epoch Format") @RequestParam(required = true) long inputDate) {
-        return weatherService.weatherForecastAverage(city, inputDate);
+        return weatherService.weatherForecast(city, inputDate);
     }
 
 }
