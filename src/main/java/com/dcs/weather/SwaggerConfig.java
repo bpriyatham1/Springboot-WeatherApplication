@@ -1,4 +1,4 @@
-package com.dcs.WeatherApplication;
+package com.dcs.weather;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
