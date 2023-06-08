@@ -52,4 +52,9 @@ public class WeatherApiRestController {
     }
   }
 
+  @GetMapping(value = "/weather/unknown", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity getWeatherWhenServiceIsUnavailable() throws Exception {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+  }
+
 }

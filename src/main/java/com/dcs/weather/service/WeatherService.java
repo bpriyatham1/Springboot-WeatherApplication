@@ -7,6 +7,7 @@ import com.dcs.weather.repository.WeatherRepository;
 import com.dcs.weather.util.DateConverter;
 import com.dcs.weather.util.ModelMapperDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class WeatherService {
         this.modelMapperDTO = new ModelMapperDTO();
     }
 
+    @CacheEvict(value = "weatherCache", allEntries = true)
     public WeatherDto createWeather(WeatherDtoReq weatherDtoReq) {
         Weather weather = modelMapperDTO.mapModelToDto(weatherDtoReq, Weather.class);
         dateConverter = new DateConverter();
@@ -40,7 +42,7 @@ public class WeatherService {
         return weatherDto;
     }
 
-    @Cacheable(value = "weatherCache")
+    @Cacheable(value = "weatherCache", key = "#id")
     public Optional<WeatherDto> getWeatherById(Integer id) {
         System.out.println("Before redis cache");
         Optional<Weather> weather = weatherRepository.findById(id);

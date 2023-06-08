@@ -1,13 +1,15 @@
 version: '3'
 services:
-  redis:
-    container_name: redis
-    image: 'redis'
+  cache:
+    image: "redis"
     ports:
       - "6379:6379"
-  java-service:
+  app:
     build: .
-    links:
-      - redis-server
     ports:
       - "8080:8080"
+    environment:
+      SPRING_REDIS_HOST: cache
+      SPRING_REDIS_PORT: 6379
+    depends_on:
+      - cache
