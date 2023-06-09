@@ -19,7 +19,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.dcs.WeatherApplication"))
+                .apis(RequestHandlerSelectors.basePackage("com.dcs.weather"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(metaData());

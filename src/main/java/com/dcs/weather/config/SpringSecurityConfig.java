@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
     /**
      * Authentication : set user/password details and mention the role.
      */
