@@ -33,4 +33,9 @@ Commands to use in case of debugging:
 
 ```docker run -p 8080:8080 spring-boot-docker.jar```
 
+Commands to check Redis logs:
 
+```
+$ docker exec -it myredis redis-cli
+$ 127.0.0.1:6379> KEYS *
+```
